@@ -42,6 +42,9 @@
     <li onclick="change_window('act')"><a class="waves-effect waves-light">Активное</a></li>
     <li onclick="change_window('arc')"><a class="waves-effect waves-light">Архив</a></li>
     <li><a class="subheader">Список предметов</a></li>
+    <div id="mob_subject_list">
+
+    </div>
     <li><a class="waves-effect blue-text" href="#!" onclick="addsubject()"><i class="material-icons left">add</i>Добавить предмет</a></li>
   </ul>
 
@@ -88,6 +91,32 @@
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-close waves-effect waves-blue btn-flat">Начать</a>
+    </div>
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <h4>Добавить предмет</h4>
+      <p>
+        Введите название нового предмета (оригинальное):
+        <div class="row">
+          <div class="col input-field s12 m6">
+            <i class="material-icons prefix">book</i>
+            <input type="text" id="new_subj_name" maxlength="32">
+            <label for="new_subj_name">Название</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <span id="add_error" class="red-text"></span>
+          </div>
+        </div>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="blue-text waves-effect waves-blue btn-flat" onclick="add_subject_now()">Добавить</a>
+      <a href="#!" class="modal-close waves-effect waves-blue btn-flat">Отмена</a>
     </div>
   </div>
 
