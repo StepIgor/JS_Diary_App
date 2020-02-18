@@ -1,1 +1,107 @@
-start
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Дневник | Diary App</title>
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="stylesheet" href="css/materialize.min.css">
+  </link>
+  <meta name="viewport" content="width=device-width">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style media="screen">
+    @media screen and (min-width: 801px) {
+      .main{
+        margin-left:305px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="blue darken-2">
+    <div class="nav-wrapper">
+      <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a class="brand-logo center hide-on-med-and-up" id="mob_section_name">Активное</a>
+      <a href="#" class="brand-logo right"><img class="hide-on-small-only" style="height:54px;margin-left:5px;margin-top:5px;" src="favicon.png" /><img class="hide-on-med-and-up" style="height:46px;margin-left:5px;margin-top:5px;"
+          src="favicon.png" /></a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li onclick="change_window('act')" class="waves-effect waves-light"><a>Активноe</a></li>
+        <li onclick="change_window('arc')" class="waves-effect waves-light"><a>Архив</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <ul id="slide-out" class="sidenav">
+    <li><a href="index.html" class="blue-text text-darken-2"><img src="favicon.png" style="height:32px;vertical-align:middle;" /> <span style="vertical-align:middle;">Diary App</span></a></li>
+    <li>
+      <div class="divider"></div>
+    </li>
+    <li><a class="subheader">Основные разделы</a></li>
+    <li onclick="change_window('act')"><a class="waves-effect waves-light">Активное</a></li>
+    <li onclick="change_window('arc')"><a class="waves-effect waves-light">Архив</a></li>
+    <li><a class="subheader">Список предметов</a></li>
+    <li><a class="waves-effect blue-text" href="#!" onclick="addsubject()"><i class="material-icons left">add</i>Добавить предмет</a></li>
+  </ul>
+
+
+  <ul id="slide-out-desktop" class="sidenav sidenav-fixed hide-on-small-only" style="z-index:-999;">
+    <div class="row">
+
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="row">
+
+    </div>
+    <li><a class="subheader" id="desktop_section_name">Активное</a></li>
+    <li>
+      <div class="divider"></div>
+    </li>
+    <!-- <li><a class="waves-effect" href="#!">Third Link With Waves</a></li> -->
+    <div id="desktop_subject_list">
+
+    </div>
+    <li><a class="waves-effect blue-text" href="#!" onclick="addsubject()"><i class="material-icons left">add</i>Добавить предмет</a></li>
+  </ul>
+
+
+  <div class="main">
+    <div class="row">
+      <div class="col s12 m12">
+        <h3 class="light">Выберите предмет из списка слева</h3>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Добро пожаловать!</h4>
+      <p>Это приложение для ведения списка задач на каждый день. Вы можете добавлять задания, отмечать их готовность и отправлять в архив. Вся информация хранится только локально (на самом устройстве). Приятной работы!</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-blue btn-flat">Начать</a>
+    </div>
+  </div>
+
+
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+  <script type="text/javascript" src="js/engine.js"></script>
+
+
+  <script>
+    $(document).ready(function() {
+      $('.sidenav').sidenav();
+    });
+  </script>
+</body>
+
+</html>
