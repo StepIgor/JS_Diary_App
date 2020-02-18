@@ -141,7 +141,7 @@ function add_task_now() {
       detail = "arc_subj_content"
     }
 
-    if (JSON.parse(localStorage.getItem(detail)) != "") {
+    if (Array.isArray(JSON.parse(localStorage.getItem(detail)))) {
       JSON.parse(localStorage.getItem(detail)).forEach(function(elem, ind) {
         if (elem[0] == last_choice) {
           sind = ind;
