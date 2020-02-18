@@ -70,7 +70,7 @@
     <div id="desktop_subject_list">
 
     </div>
-    <li><a class="waves-effect blue-text" href="#!" onclick="addsubject()"><i class="material-icons left">add</i>Добавить предмет</a></li>
+    <li id="add_subj_button"><a class="waves-effect blue-text" href="#!" onclick="addsubject()"><i class="material-icons left">add</i>Добавить предмет</a></li>
   </ul>
 
 
@@ -82,12 +82,12 @@
     </div>
     <div class="row">
       <div class="col s12 m12">
-        <div id="sj_tasks" class="collection" style="display:none;">
+        <ul id="sj_tasks" class="collection" style="display:none;">
           <span id="sj_tasks_lines">
 
           </span>
-          <a href="#!" class="collection-item blue-text" onclick="open_new_task_form()"><i class="material-icons left blue-text">add</i>Добавить задание</a>
-        </div>
+          <a href="#!" class="collection-item blue-text" onclick="open_new_task_form()"><i class="blue-text material-icons left blue-text">add</i>Добавить задание</a>
+        </ul>
       </div>
     </div>
   </div>

@@ -47,10 +47,12 @@ function change_window(win) {
     window_now = "archive";
     $('#mob_section_name').text('Архив');
     $('#desktop_section_name').text('Архив');
+    $('#add_subj_button').css({"display":"none"});
   } else {
     window_now = "active";
     $('#mob_section_name').text('Активное')
     $('#desktop_section_name').text('Активное')
+    $('#add_subj_button').css({"display":"inline"});
   }
   $('#slide-out').sidenav('close');
   refresh_subj_list();
@@ -102,9 +104,13 @@ function show_sj(id) {
       }
     });
 
+    var color = "";
+    var status_word = "";
+
     if (sind != -1) {
-      for (item = 1; item < JSON.parse(localStorage.getItem(detail))[sind].length; item++) {
-        $("#sj_tasks_lines").html($("#sj_tasks_lines").html() + '<a href="#!" class="collection-item black-text">' + JSON.parse(localStorage.getItem(detail))[sind][item][0] + '</a>');
+      for (item = JSON.parse(localStorage.getItem(detail))[sind].length-1; item >= 1; item--) {
+        if (JSON.parse(localStorage.getItem(detail))[sind][item][1] == 0){color = "black-text"; status_word="";}else{color = "grey lighten-2 grey-text";status_word="<span class='green-text'>Выполнено!</span><br>"}
+        $("#sj_tasks_lines").html($("#sj_tasks_lines").html() + '<li class="collection-item '+color+'"><div>'+ status_word + JSON.parse(localStorage.getItem(detail))[sind][item][0] + '<a href="#!" onclick="mark_as_done('+sind+','+item+')" class="secondary-content"><i class="material-icons green-text">assignment_turned_in</i></a><a href="#!" class="secondary-content"><i class="material-icons yellow-text">archive</i></a><a href="#!" class="secondary-content"><i class="material-icons blue-text">edit</i></a><a onclick="delete_task('+sind+','+item+')" href="#!" class="secondary-content"><i class="material-icons red-text">delete</i></a></div></li>');
       }
     }
 
@@ -123,7 +129,7 @@ function open_new_task_form() {
 
 
 function add_task_now() {
-  var task_text = $('#new_task_text').val();
+  var task_text = $('#new_task_text').val().replace(/\n/g, "<br />");
 
   if (task_text.length > 0) {
 
@@ -164,4 +170,36 @@ function add_task_now() {
     show_sj(last_choice);
 
   }
+}
+
+
+function delete_task(sind,item){
+  if (window_now == "active") {
+    detail = "subj_content"
+  } else {
+    detail = "arc_subj_content"
+  }
+  lst = JSON.parse(localStorage.getItem(detail));
+
+  lst[sind].splice(item,1);
+
+  localStorage.setItem(detail,JSON.stringify(lst));
+
+  show_sj(last_choice);
+}
+
+
+function mark_as_done(sind,item){
+  if (window_now == "active") {
+    detail = "subj_content"
+  } else {
+    detail = "arc_subj_content"
+  }
+  lst = JSON.parse(localStorage.getItem(detail));
+
+  if (lst[sind][item][1] == 1){ lst[sind][item][1] = 0 } else { lst[sind][item][1] = 1 }
+
+  localStorage.setItem(detail,JSON.stringify(lst));
+
+  show_sj(last_choice);
 }
