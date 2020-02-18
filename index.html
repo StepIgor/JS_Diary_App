@@ -86,12 +86,31 @@
           <span id="sj_tasks_lines">
 
           </span>
-          <a href="#!" class="collection-item blue-text"><i class="material-icons left blue-text">add</i>Добавить задание</a>
+          <a href="#!" class="collection-item blue-text" onclick="open_new_task_form()"><i class="material-icons left blue-text">add</i>Добавить задание</a>
         </div>
       </div>
     </div>
   </div>
 
+
+  <!-- Modal Structure -->
+  <div id="modal3" class="modal">
+    <div class="modal-content">
+      <h4>Добавить задание</h4>
+      <p>
+          <div class="row">
+            <div class="input-field col s12 m12">
+              <textarea id="new_task_text" class="materialize-textarea" maxlength="10000"></textarea>
+              <label for="new_task_text">Содержимое</label>
+            </div>
+          </div>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="waves-effect blue-text waves-blue btn-flat" onclick="add_task_now()">Добавить</a>
+      <a href="#!" class="modal-close waves-effect waves-blue btn-flat">Отмена</a>
+    </div>
+  </div>
 
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
