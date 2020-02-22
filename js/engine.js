@@ -148,6 +148,9 @@ function show_sj(id) {
   $('#sj_tasks').css({
     "display": "block"
   });
+
+  $('#actions_with_subject').css({'display':'none'});
+
 }
 
 
@@ -310,3 +313,9 @@ function accept_edited_text(){
 
   show_sj(last_choice);
 }
+
+
+document.addEventListener('contextmenu',function(e){
+  e.preventDefault();
+  if (last_choice != ""){$('#actions_with_subject').css({'display':'block'});}
+});
