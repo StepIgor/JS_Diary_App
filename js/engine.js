@@ -36,6 +36,10 @@ function htmlspecialchars(text) {
   return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
 
+function cancelhtmlspecialchars(str){
+  return str.replace(/<br \/>/g,"\n").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,"\"").replace(/&#039;/g,"'").replace(/&amp;/g,"&");
+}
+
 
 function refresh_subj_list() {
   var detail = "";
@@ -124,7 +128,7 @@ function show_sj(id) {
       if (sind != -1) {
         for (item = JSON.parse(localStorage.getItem(detail))[sind].length-1; item >= 1; item--) {
           if (JSON.parse(localStorage.getItem(detail))[sind][item][1] == 0){color = "black-text"; status_word="";}else{color = "grey lighten-2 grey-text";status_word="<span class='green-text'>Выполнено!</span><br>"}
-          $("#sj_tasks_lines").html($("#sj_tasks_lines").html() + '<li class="collection-item '+color+'"><div>'+ status_word + JSON.parse(localStorage.getItem(detail))[sind][item][0] + '<a href="#!" onclick="mark_as_done('+sind+','+item+')" class="secondary-content"><i class="material-icons green-text">assignment_turned_in</i></a><a href="#!" onclick="send_to_archive('+sind+','+item+')" class="secondary-content"><i class="material-icons yellow-text">archive</i></a><a href="#!" class="secondary-content"><i class="material-icons blue-text">edit</i></a><a onclick="delete_task('+sind+','+item+')" href="#!" class="secondary-content"><i class="material-icons red-text">delete</i></a></div></li>');
+          $("#sj_tasks_lines").html($("#sj_tasks_lines").html() + '<li class="collection-item '+color+'"><div>'+ status_word + JSON.parse(localStorage.getItem(detail))[sind][item][0] + '<a href="#!" onclick="mark_as_done('+sind+','+item+')" class="secondary-content"><i class="material-icons green-text">assignment_turned_in</i></a><a href="#!" onclick="send_to_archive('+sind+','+item+')" class="secondary-content"><i class="material-icons yellow-text">archive</i></a><a onclick="edit_text('+sind+','+item+')" href="#!" class="secondary-content"><i class="material-icons blue-text">edit</i></a><a onclick="delete_task('+sind+','+item+')" href="#!" class="secondary-content"><i class="material-icons red-text">delete</i></a></div></li>');
         }
       }
     } else {
@@ -153,9 +157,11 @@ function open_new_task_form() {
 
 
 function add_task_now() {
-  var task_text = $('#new_task_text').val().replace(/\n/g, "<br />");
 
+  var task_text = $('#new_task_text').val();
   task_text = htmlspecialchars(task_text);
+  task_text = task_text.replace(/\n/g, "<br />");
+
 
   if (task_text.length > 0) {
 
@@ -275,4 +281,32 @@ function send_to_archive(sind,item){
     show_sj(last_choice);
 
     M.toast({html:'Задание отправлено в архив.'});
+}
+
+var last_edit_id_sind = -1;
+var last_edit_id_item = -1;
+
+function edit_text(sind,item){
+  var actual_subj_content = JSON.parse(localStorage.getItem('subj_content'));
+
+  last_edit_id_sind = sind;
+  last_edit_id_item = item;
+
+  $('#edit_text_modal').modal('open');
+  $('#edited_task_textarea').val(cancelhtmlspecialchars(actual_subj_content[sind][item][0]));
+  M.textareaAutoResize($('#edited_task_textarea'));
+
+}
+
+function accept_edited_text(){
+  var actual_subj_content = JSON.parse(localStorage.getItem('subj_content'));
+
+  actual_subj_content[last_edit_id_sind][last_edit_id_item][0] = htmlspecialchars($('#edited_task_textarea').val()).replace(/\n/g,"<br />");
+  $('#edited_task_textarea').val("");
+
+  localStorage.setItem('subj_content',JSON.stringify(actual_subj_content));
+
+  M.toast({html:'Запись обновлена.'});
+
+  show_sj(last_choice);
 }
