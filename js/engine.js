@@ -24,6 +24,10 @@ $(document).ready(function() {
   }
 });
 
+$(document).ready(function() {
+  $('.sidenav').sidenav();
+});
+
 function htmlspecialchars(text) {
   var map = {
     '&': '&amp;',
@@ -65,14 +69,16 @@ function change_window(win) {
     $('#mob_section_name').text('Архив');
     $('#desktop_section_name').text('Архив');
     $('#add_subj_button').css({"display":"none"});
+    $('#mob_add_subj_button').css({"display":"none"});
   } else {
     window_now = "active";
     $('#mob_section_name').text('Активное')
     $('#desktop_section_name').text('Активное')
     $('#add_subj_button').css({"display":"inline"});
+    $('#mob_add_subj_button').css({"display":"inline"});
   }
-  $('#slide-out').sidenav('close');
   refresh_subj_list();
+  show_stnd_screen();
 }
 
 function addsubject() {
@@ -92,6 +98,7 @@ function add_subject_now() {
       localStorage.setItem('subjects', JSON.stringify(subjects));
       $('#modal2').modal('close');
       refresh_subj_list();
+      M.toast({html:'Предмет добавлен.'});
     } else {
       $('#add_error').text("Предмет с таким названием уже существует.");
     }
@@ -319,3 +326,46 @@ document.addEventListener('contextmenu',function(e){
   e.preventDefault();
   if (last_choice != ""){$('#actions_with_subject').css({'display':'block'});}
 });
+
+
+function delete_this_subject(){
+  if (window_now == "active") {
+    detail = "subjects"
+    detail2 = "subj_content"
+  } else {
+    detail = "arc_subjects"
+    detail2 = "arc_subj_content"
+  }
+
+  actual_subjects = JSON.parse(localStorage.getItem(detail));
+  actual_subj_content = JSON.parse(localStorage.getItem(detail2));
+
+  actual_subjects.splice(actual_subjects.indexOf(last_choice),1);
+
+  ind = -1;
+
+  for (sind = 0; sind < actual_subj_content.length; sind++){
+    if (actual_subj_content[sind][0] == last_choice){
+      ind = sind;
+    }
+  }
+
+  if (ind != -1){
+    actual_subj_content.splice(ind,1);
+  }
+
+  localStorage.setItem(detail2,JSON.stringify(actual_subj_content));
+  localStorage.setItem(detail,JSON.stringify(actual_subjects));
+
+  show_stnd_screen();
+  refresh_subj_list();
+
+  M.toast({html:'Предмет удалён.'});
+}
+
+function show_stnd_screen(){
+  $('#sj_tasks').css({'display':'none'});
+  $('#actions_with_subject').css({'display':'none'});
+  $('#sj_name_now').text('Выберите предмет из списка слева');
+  last_choice = "";
+}
