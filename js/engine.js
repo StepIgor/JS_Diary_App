@@ -93,12 +93,18 @@ function add_subject_now() {
   if (newsubj.length > 0) {
     var subjects = JSON.parse(localStorage.getItem('subjects'));
 
+    if (newsubj.indexOf("<") != -1 || newsubj.indexOf("'") != -1 || newsubj.indexOf('"') != -1 || newsubj.indexOf(">") != -1 || newsubj.indexOf("\\") != -1 || newsubj.indexOf("/") != -1){
+      $('#add_error').text("Название предмета содержит запрещенные символы.");
+      return;
+    }
+
     if (subjects.indexOf(newsubj) == -1) {
       subjects.push(newsubj);
       localStorage.setItem('subjects', JSON.stringify(subjects));
       $('#modal2').modal('close');
       refresh_subj_list();
       M.toast({html:'Предмет добавлен.'});
+      $('#add_error').text("");
     } else {
       $('#add_error').text("Предмет с таким названием уже существует.");
     }
