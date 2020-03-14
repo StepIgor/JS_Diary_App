@@ -103,6 +103,7 @@ function add_subject_now() {
       localStorage.setItem('subjects', JSON.stringify(subjects));
       $('#modal2').modal('close');
       refresh_subj_list();
+      $('.toast').remove();
       M.toast({html:'Предмет добавлен.'});
       $('#add_error').text("");
     } else {
@@ -141,14 +142,14 @@ function show_sj(id) {
       if (sind != -1) {
         for (item = JSON.parse(localStorage.getItem(detail))[sind].length-1; item >= 1; item--) {
           if (JSON.parse(localStorage.getItem(detail))[sind][item][1] == 0){color = "black-text"; status_word="";}else{color = "grey lighten-2 grey-text";status_word="<span class='green-text'>Выполнено!</span><br>"}
-          $("#sj_tasks_lines").html($("#sj_tasks_lines").html() + '<li class="collection-item '+color+'"><div>'+ status_word + JSON.parse(localStorage.getItem(detail))[sind][item][0] + '<a href="#!" onclick="mark_as_done('+sind+','+item+')" class="secondary-content"><i class="material-icons green-text">assignment_turned_in</i></a><a href="#!" onclick="send_to_archive('+sind+','+item+')" class="secondary-content"><i class="material-icons yellow-text">archive</i></a><a onclick="edit_text('+sind+','+item+')" href="#!" class="secondary-content"><i class="material-icons blue-text">edit</i></a><a onclick="delete_task('+sind+','+item+')" href="#!" class="secondary-content"><i class="material-icons red-text">delete</i></a></div></li>');
+          $("#sj_tasks_lines").html($("#sj_tasks_lines").html() + '<li class="collection-item '+color+'"><div style="word-wrap:break-word;">'+ status_word + JSON.parse(localStorage.getItem(detail))[sind][item][0] + '<br><a href="#!" onclick="mark_as_done('+sind+','+item+')" class="secondary-content"><i class="material-icons green-text">assignment_turned_in</i></a><a href="#!" onclick="send_to_archive('+sind+','+item+')" class="secondary-content"><i class="material-icons yellow-text">archive</i></a><a onclick="edit_text('+sind+','+item+')" href="#!" class="secondary-content"><i class="material-icons blue-text">edit</i></a><a onclick="delete_task('+sind+','+item+')" href="#!" class="secondary-content"><i class="material-icons red-text">delete</i></a><br></div></li>');
         }
       }
     } else {
       if (sind != -1) {
         for (item = JSON.parse(localStorage.getItem(detail))[sind].length-1; item >= 1; item--) {
           if (JSON.parse(localStorage.getItem(detail))[sind][item][1] == 0){color = "black-text"; status_word="";}else{color = "grey lighten-2 grey-text";status_word="<span class='green-text'>Выполнено!</span><br>"}
-          $("#sj_tasks_lines").html($("#sj_tasks_lines").html() + '<li class="collection-item '+color+'"><div>'+ status_word + JSON.parse(localStorage.getItem(detail))[sind][item][0] + '<a onclick="delete_task('+sind+','+item+')" href="#!" class="secondary-content"><i class="material-icons red-text">delete</i></a></div></li>');
+          $("#sj_tasks_lines").html($("#sj_tasks_lines").html() + '<li class="collection-item '+color+'"><div style="word-wrap:break-word;">'+ status_word + JSON.parse(localStorage.getItem(detail))[sind][item][0] + '<br><a onclick="delete_task('+sind+','+item+')" href="#!" class="secondary-content"><i class="material-icons red-text">delete</i></a><br></div></li>');
         }
       }
     }
@@ -217,6 +218,7 @@ function add_task_now() {
 
     show_sj(last_choice);
 
+    $('.toast').remove();
     M.toast({html:'Задание добавлено.'});
 
   }
@@ -237,6 +239,7 @@ function delete_task(sind,item){
 
   show_sj(last_choice);
 
+  $('.toast').remove();
   M.toast({html:'Задание удалено.'});
 }
 
@@ -255,6 +258,7 @@ function mark_as_done(sind,item){
 
   show_sj(last_choice);
 
+  $('.toast').remove();
   M.toast({html:'Статус задания изменен.'});
 }
 
@@ -266,6 +270,7 @@ function send_to_archive(sind,item){
     var actual_arc_subj_content = JSON.parse(localStorage.getItem('arc_subj_content'));
 
     if (actual_subj_content[sind][item][1] == 0){
+      $('.toast').remove();
       M.toast({html:'Нельзя отправить в архив. Задание не выполнено.'});
       return;
     }
@@ -296,6 +301,7 @@ function send_to_archive(sind,item){
 
     show_sj(last_choice);
 
+    $('.toast').remove();
     M.toast({html:'Задание отправлено в архив.'});
 }
 
@@ -322,6 +328,7 @@ function accept_edited_text(){
 
   localStorage.setItem('subj_content',JSON.stringify(actual_subj_content));
 
+  $('.toast').remove();
   M.toast({html:'Запись обновлена.'});
 
   show_sj(last_choice);
@@ -366,6 +373,7 @@ function delete_this_subject(){
   show_stnd_screen();
   refresh_subj_list();
 
+  $('.toast').remove();
   M.toast({html:'Предмет удалён.'});
 }
 
