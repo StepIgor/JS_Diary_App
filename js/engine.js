@@ -170,6 +170,7 @@ function show_sj(id) {
 
 function open_new_task_form() {
   $('#modal3').modal('open');
+  M.textareaAutoResize($('#new_task_text'));
 }
 
 
@@ -309,6 +310,7 @@ var last_edit_id_sind = -1;
 var last_edit_id_item = -1;
 
 function edit_text(sind,item){
+  M.textareaAutoResize($('#edited_task_textarea'));
   var actual_subj_content = JSON.parse(localStorage.getItem('subj_content'));
 
   last_edit_id_sind = sind;
