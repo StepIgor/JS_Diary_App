@@ -1,0 +1,17 @@
+{
+  "short_name": "Diary App",
+  "name": "Diary App: личный дневник",
+  "description": "Вести записи по предметам",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "index.html",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#1976D2"
+}
